@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "YOUR_FIREBASE_PROJECT_ID",
+    "bunker-fuel-maldives": "bunker-fuel-maldives"
+  },
+  "targets": {},
+  "etags": {}
+}

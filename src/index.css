@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-lagoon: #5BC0BE;
+    --color-cyan: #7FD8D8;
+    --color-sand: #FBF7F1;
+    --color-teal: #0F4C5C;
+    --color-coral: #FF7E5F;
+    --color-hibiscus: #F76C5E;
+    --color-palm: #4A7C59;
+
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    font-family: 'Inter', 'General Sans', 'Söhne', ui-sans-serif, system-ui, sans-serif;
+    background-color: #FBF7F1;
+    color: #0F4C5C;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fraunces', 'Tiempos', ui-serif, Georgia, serif;
+    font-feature-settings: 'ss01', 'ss02';
+    color: #0F4C5C;
+    letter-spacing: -0.01em;
+  }
+
+  /* Tabular numerals for any number-like content */
+  .tabular,
+  .font-mono,
+  [data-tabular] {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: 'tnum', 'lnum';
+  }
+
+  /* Selection in lagoon */
+  ::selection {
+    background-color: rgba(91, 192, 190, 0.35);
+    color: #0F4C5C;
+  }
+
+  /* Focus rings — lagoon, never default browser blue */
+  :focus-visible {
+    outline: 2px solid #5BC0BE;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .container-editorial {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply text-[11px] sm:text-xs font-medium uppercase tracking-caps text-teal/70;
+  }
+
+  .small-caps-teal {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    color: #0F4C5C;
+  }
+
+  /* Soft sunlight-on-sand card */
+  .card-sand {
+    @apply bg-white rounded-card-lg shadow-sand;
+  }
+
+  /* Glassmorphism nav surface */
+  .glass-nav {
+    background: rgba(251, 247, 241, 0.72);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-bottom: 1px solid rgba(15, 76, 92, 0.06);
+  }
+
+  /* Pulse dot — lagoon turquoise heartbeat */
+  .pulse-dot {
+    @apply relative inline-block w-2 h-2 rounded-full bg-lagoon-500;
+  }
+  .pulse-dot::after {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-lagoon-500;
+    animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(3); opacity: 0; }
+  }
+
+  /* Primary CTA — coral, generously rounded */
+  .btn-coral {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full
+           bg-coral-500 text-white font-medium text-[15px]
+           shadow-[0_6px_20px_-4px_rgba(255,126,95,0.45)]
+           transition-all duration-300 ease-out
+           hover:bg-coral-600 hover:shadow-[0_10px_28px_-4px_rgba(255,126,95,0.55)]
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  /* Secondary CTA — teal outline */
+  .btn-teal {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full
+           bg-transparent text-teal-500 font-medium text-[15px]
+           border border-teal-500/30
+           transition-all duration-300 ease-out
+           hover:border-teal-500 hover:bg-teal-500 hover:text-white;
+  }
+
+  /* Tabular monospace block for IMO/regs */
+  .data-chip {
+    @apply inline-flex items-center gap-1.5 text-[12px] font-medium text-teal-500/85 tabular;
+  }
+
+  /* LQIP blur-up */
+  .lqip {
+    filter: blur(12px);
+    transform: scale(1.02);
+    transition: filter 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .lqip.loaded {
+    filter: blur(0);
+    transform: scale(1);
+  }
+
+  /* Image edge-bleed container */
+  .image-bleed {
+    @apply overflow-hidden;
+  }
+  .image-bleed img {
+    @apply w-full h-full object-cover;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
